@@ -7,7 +7,7 @@ on:
         description: "Use this Workflow to build a test Project Archive.  The official ones will automatically be built when a GitHub release is created.  Note: this only builds 'main' branch."
         required: true
         type: string
-        default: 'migration-tool'
+        default: 'awsworkshop'
     branches:
       - 'main'
 

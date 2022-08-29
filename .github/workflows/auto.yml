@@ -1,7 +1,7 @@
 name: Auto Release Package
 
 env:
-  projectName: migration-tool
+  projectName: awsworkshop
 
 on:
   release:
