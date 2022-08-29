@@ -1,0 +1,35 @@
+name: Auto Release Package
+
+env:
+  projectName: migration-tool
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-project-archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Create .jar File
+        uses: vimtor/action-zip@v1
+        with:
+          files: project/
+          recursive: true
+          dest: ${{ env.projectName }}.rdproject.jar
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: $projectName
+          path: ${{ github.workspace }}/$projectName.rdproject.jar
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ env.projectName }}.rdproject.jar
+          asset_name: ${{ env.projectName }}.rdproject.jar
+          tag: ${{  github.ref_name }}
+          overwrite: true
+          body: ""

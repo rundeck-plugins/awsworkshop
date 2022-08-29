@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Rundeck-Application-Version: 4.5.0-SNAPSHOT
+Rundeck-Archive-Format-Version: 1.0
+Rundeck-Archive-Project-Name: awsdevday-acme-corp
+Rundeck-Archive-Export-Date: 2022-08-29T18:58:02Z
+

@@ -1,0 +1,30 @@
+name: Manual Release Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      projectName:
+        description: "Use this Workflow to build a test Project Archive.  The official ones will automatically be built when a GitHub release is created.  Note: this only builds 'main' branch."
+        required: true
+        type: string
+        default: 'migration-tool'
+    branches:
+      - 'main'
+
+jobs:
+  buiild-project-archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Create .jar File
+        uses: vimtor/action-zip@v1
+        with:
+          files: project/
+          recursive: true
+          dest: ${{ inputs.projectName }}.rdproject.jar
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.projectName }}
+          path: ${{ github.workspace }}/${{ inputs.projectName }}.rdproject.jar

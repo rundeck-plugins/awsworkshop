@@ -1,0 +1,29 @@
+<joblist>
+  <job>
+    <defaultTab>nodes</defaultTab>
+    <description>Queries CloudWatch for recent Nginx access logs</description>
+    <executionEnabled>true</executionEnabled>
+    <id>26b0d8b6-2e2c-4dda-b204-96227a80507c</id>
+    <loglevel>INFO</loglevel>
+    <name>Nginx Access Logs from CloudWatch</name>
+    <nodeFilterEditable>false</nodeFilterEditable>
+    <plugins />
+    <scheduleEnabled>true</scheduleEnabled>
+    <schedules />
+    <sequence keepgoing='false' strategy='node-first'>
+      <command>
+        <description>Query CloudWatch for Nginx Access Logs</description>
+        <step-plugin type='aws-query-cloudwatch-logs-step'>
+          <configuration>
+            <entry key='0' value='15' />
+            <entry key='cloudWatchLogGroup' value='/ec2/nginx/logs' />
+            <entry key='queryString' value='fields @timestamp, @message&#10;| sort @timestamp desc&#10;| limit 10' />
+            <entry key='region' value='us-east-1' />
+            <entry key='timeUnit' value='Minutes' />
+          </configuration>
+        </step-plugin>
+      </command>
+    </sequence>
+    <uuid>26b0d8b6-2e2c-4dda-b204-96227a80507c</uuid>
+  </job>
+</joblist>
