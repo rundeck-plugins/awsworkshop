@@ -5,7 +5,7 @@
     <executionEnabled>true</executionEnabled>
     <id>26b0d8b6-2e2c-4dda-b204-96227a80507c</id>
     <loglevel>INFO</loglevel>
-    <name>Nginx Access Logs from CloudWatch</name>
+    <name>Get NGINX Access Logs via AWS CloudWatch</name>
     <nodeFilterEditable>false</nodeFilterEditable>
     <plugins />
     <scheduleEnabled>true</scheduleEnabled>

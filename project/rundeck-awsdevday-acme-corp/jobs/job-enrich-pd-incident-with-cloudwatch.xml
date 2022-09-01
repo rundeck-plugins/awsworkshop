@@ -1,0 +1,63 @@
+<joblist>
+  <job>
+    <context>
+      <options preserveOrder='true'>
+        <option name='email' required='true'>
+          <description>Email address associated with the PagerDuty user invoking this Job.</description>
+          <label>PagerDuty User Email</label>
+        </option>
+        <option name='pd_incident_id' required='true'>
+          <description>The ID of the PagerDuty incident. This is retrieved from the URL of an individual incident in PagerDuty.</description>
+          <label>PagerDuty Incident ID</label>
+        </option>
+      </options>
+    </context>
+    <defaultTab>nodes</defaultTab>
+    <description></description>
+    <executionEnabled>true</executionEnabled>
+    <id>dbc51a8a-3751-4e7d-aeac-ddefc4f36634</id>
+    <loglevel>INFO</loglevel>
+    <name>Enrich Incident with CloudWatch Logs.</name>
+    <nodeFilterEditable>false</nodeFilterEditable>
+    <plugins />
+    <scheduleEnabled>true</scheduleEnabled>
+    <schedules />
+    <sequence keepgoing='false' strategy='node-first'>
+      <command>
+        <description>Retrieve Logs from CloudWatch</description>
+        <plugins>
+          <LogFilter type='key-value-data-multilines'>
+            <config>
+              <captureMultipleKeysValues>false</captureMultipleKeysValues>
+              <hideOutput>false</hideOutput>
+              <logData>true</logData>
+              <name>nginx_logs</name>
+              <regex>(.*)</regex>
+            </config>
+          </LogFilter>
+        </plugins>
+        <step-plugin type='aws-query-cloudwatch-logs-step'>
+          <configuration>
+            <entry key='0' value='15' />
+            <entry key='cloudWatchLogGroup' value='/ec2/nginx/logs' />
+            <entry key='queryString' value='fields @timestamp, @message&#10;| sort @timestamp desc&#10;| limit 5' />
+            <entry key='region' value='us-east-1' />
+            <entry key='timeUnit' value='Minutes' />
+          </configuration>
+        </step-plugin>
+      </command>
+      <command>
+        <description>Send Logs to PagerDuty</description>
+        <step-plugin type='pd-note-step'>
+          <configuration>
+            <entry key='api_token' value='keys/project/automated-diagnostics/pd-api-token' />
+            <entry key='email' value='${option.email}' />
+            <entry key='incident_id' value='${option.pd_incident_id}' />
+            <entry key='note' value='${data.nginx_logs}\n' />
+          </configuration>
+        </step-plugin>
+      </command>
+    </sequence>
+    <uuid>dbc51a8a-3751-4e7d-aeac-ddefc4f36634</uuid>
+  </job>
+</joblist>
