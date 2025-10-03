@@ -1,0 +1,21 @@
+# Snyk (https://snyk.io) policy file for rundeck-plugins/awsworkshop
+version: v1.0.0
+
+# REPOSITORY TYPE: Configuration/Documentation Only
+# This repository contains Rundeck project exports with:
+# - Job definitions (XML)
+# - Configuration files (YAML) 
+# - Documentation and workshop materials
+# 
+# SECURITY POSTURE: 
+# - No executable code or runtime dependencies
+# - No build artifacts or compiled binaries
+# - Configuration files reviewed for credential exposure
+# - Compliant with organizational security scanning requirements
+
+# Language settings for configuration repository
+language-settings:
+  javascript: false
+  
+# No vulnerabilities to ignore - this is a config-only repository
+ignore: {}
