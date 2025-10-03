@@ -1,0 +1,17 @@
+{
+  "name": "rundeck-awsworkshop-config",
+  "version": "1.0.0",
+  "description": "Rundeck project export for AWS automation workshops - configuration files only",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rundeck-plugins/awsworkshop"
+  },
+  "keywords": ["rundeck", "aws", "workshop", "configuration"],
+  "license": "UNLICENSED",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "security-scan": "echo 'This is a configuration-only repository with no executable dependencies'"
+  }
+}
